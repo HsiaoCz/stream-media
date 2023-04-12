@@ -116,3 +116,60 @@ func Benchmark(b *testing.B){
 ```
 
 使用 benchmark 一定要主要函数在一段时间之后能达到稳态
+
+### 2、流媒体点播网站
+
+**架构设计**
+
+前后端分离
+
+前端服务，
+后端服务分为两个部分 Streaming,Scheduler，一个负责上传下载，一个负责删除和软删除，定期清理等内容
+
+前后端解耦
+
+前端页面和服务通过普通的 web 引擎来渲染
+后端数据通过渲染后的页面脚本调用后处理和呈现
+
+**api 设计**
+
+对外提供一个接口
+RESTful API
+RESTful API 通常使用 HTTP 作为通信协议，JSON 格式作为前后端通信的数据格式
+
+RESTful API 的特点
+
+统一接口，统一设计：
+风格统一
+
+无状态：
+什么时候调用 API，返回的必须是我想要的东西
+
+可缓存：
+为了解决后端压力，经常把一些读大于写的东西放到缓存里面
+
+分层：
+访问 API service 的时候，不会知道里面经过了多少节点，多少层次
+每一层次负责一部分功能
+
+CS 模式：
+client/server 模式
+
+RESTful API 设计的原则
+以 URL(统一资源定位符)风格设计 API
+通过不同的 METHOD(GET,POST,PUT,DELETE)来区分对资源的 CRUD
+返回码(status Code)符合 HTTP 资源的描述的规定
+
+API 怎么设计
+
+用户:用户可以上传下载，删除视频，可以发表评论
+资源：就是视频
+评论：每个视频下有评论
+
+**API 设计：用户**
+
+- 创建(注册)用户: URL:/user Method:POST, sc:201,400,500
+- 用户登录：URL:/user/:username Method:POST sc:200,400,500
+- 获取用户的基本信息：URL:/user/:username Method:POST sc :200,400,401,403,500
+
+- 用户注销：URL:/user/:username Method:DELETE,SC:204,400,401,403,500
