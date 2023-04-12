@@ -80,3 +80,39 @@ func TestAll(t *testing.T){
 ```
 
 在工程上，用来运行其他的测试，这里别的测试可以小写，避免多次执行
+
+## 2、benchmark
+
+benchmark 函数一般以 Benchmark 开头
+benchmark 的 case 一般会跑 b.N 次，而且每次执行都会如此
+在执行过程中会根据实际的 case 的执行时间是否稳定会增加 b.N 的次数以达到稳态
+
+```go
+func BenchmarkAll(b *testing.B){
+    for n:=0;n<b.N;n++{
+        PrintInfo20()
+    }
+}
+```
+
+命令: go test -bench= .
+
+有一点需要注意,benchamrk 会跑到一个达到稳态，如果执行无法达到稳态
+可能会一直执行
+
+```go
+func aaa(n int)int{
+    for n>0{
+        n--
+    }
+    return n
+}
+
+func Benchmark(b *testing.B){
+    for n:=0;n<b.N;n++{
+        aaa(n)
+    }
+}
+```
+
+使用 benchmark 一定要主要函数在一段时间之后能达到稳态
