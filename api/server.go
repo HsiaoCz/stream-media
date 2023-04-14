@@ -4,16 +4,19 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/HsiaoCz/stream-media/storage"
 	"github.com/gorilla/mux"
 )
 
 type Server struct {
 	listenAddr string
+	mysqlStore storage.MySqlStorage
 }
 
-func NewServer(listenAddr string) *Server {
+func NewServer(listenAddr string, mysqlStore storage.MySqlStorage) *Server {
 	return &Server{
 		listenAddr: listenAddr,
+		mysqlStore: mysqlStore,
 	}
 }
 
