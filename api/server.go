@@ -1,21 +1,23 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
+	"github.com/HsiaoCz/stream-media/conf"
 	"github.com/HsiaoCz/stream-media/storage"
 	"github.com/gorilla/mux"
 )
 
 type Server struct {
 	listenAddr string
-	store      storage.Storage
+	store      *storage.Storage
 }
 
-func NewServer(listenAddr string, store storage.Storage) *Server {
+func NewServer(store *storage.Storage) *Server {
 	return &Server{
-		listenAddr: listenAddr,
+		listenAddr: fmt.Sprintf("%s:%s", conf.Conf.AppConfig.AppAddr, conf.Conf.AppConfig.AppPort),
 		store:      store,
 	}
 }

@@ -1,3 +1,7 @@
+app:
+  addr: 172.27.202.125
+  port: 9091
+
 mysql:
   mysql_user: "root"
   password: "shaw123"

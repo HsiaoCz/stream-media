@@ -11,6 +11,12 @@ var Conf = new(WebApp)
 
 type WebApp struct {
 	MySQLConf MysqlConf `mapstructure:"mysql"`
+	AppConfig AppConf   `mapstructure:"app"`
+}
+
+type AppConf struct {
+	AppAddr string `mapstructure:"addr"`
+	AppPort string `mapstructure:"port"`
 }
 
 type MysqlConf struct {
