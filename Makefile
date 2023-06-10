@@ -7,12 +7,11 @@ build:
 test:
 	@go test -v ./...
 
-all:run
-
-.PHONY:run build test all
-
 help:
 	@echo "run :go run ./bin/stream-dedia"
 	@echo "build :go build bin/stream-dedia"
 	@echo "test :go test ./..."
-	
+
+all: run
+
+.PHONY:run build test all help

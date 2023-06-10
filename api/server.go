@@ -10,13 +10,13 @@ import (
 
 type Server struct {
 	listenAddr string
-	mysqlStore storage.MySqlStorage
+	store      storage.Storage
 }
 
-func NewServer(listenAddr string, mysqlStore storage.MySqlStorage) *Server {
+func NewServer(listenAddr string, store storage.Storage) *Server {
 	return &Server{
 		listenAddr: listenAddr,
-		mysqlStore: mysqlStore,
+		store:      store,
 	}
 }
 

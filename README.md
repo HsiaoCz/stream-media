@@ -170,6 +170,6 @@ API 怎么设计
 
 - 创建(注册)用户: URL:/user Method:POST, sc:201,400,500
 - 用户登录：URL:/user/:username Method:POST sc:200,400,500
-- 获取用户的基本信息：URL:/user/:username Method:POST sc :200,400,401,403,500
+- 获取用户的基本信息：URL:/user/:username Method:GET sc :200,400,401,403,500
 
 - 用户注销：URL:/user/:username Method:DELETE,SC:204,400,401,403,500
