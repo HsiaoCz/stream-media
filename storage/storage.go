@@ -5,9 +5,9 @@ type Storage struct {
 	RedisStorage
 }
 
-func NewStorage(mysql_Storage MySqlStorage, redis_Storage RedisStorage) *Storage {
+func NewStorage() *Storage {
 	return &Storage{
-		MySqlStorage: mysql_Storage,
-		RedisStorage: redis_Storage,
+		MySqlStorage: NewMysqlStorage().um,
+		RedisStorage: NewRedisStorage(),
 	}
 }

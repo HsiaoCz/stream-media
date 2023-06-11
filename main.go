@@ -14,10 +14,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	mysql_stroage := storage.NewMysqlStorage()
-	redis_storage := storage.NewRedisStorage()
 
-	storage := storage.NewStorage(mysql_stroage, redis_storage)
+	ms := storage.NewMysqlStorage()
+	istore := storage.NewIstore()
+	if err := istore.StartConnStorage(ms); err != nil {
+		log.Fatal(err)
+	}
+
+	storage := storage.NewStorage()
 
 	srv := api.NewServer(storage)
 	log.Println("the server is running on port:", fmt.Sprintf("%s:%s", conf.Conf.AppConfig.AppAddr, conf.Conf.AppConfig.AppPort))

@@ -1,16 +1,23 @@
 package storage
 
 import (
+	"fmt"
+
 	"github.com/HsiaoCz/stream-media/conf"
+	"github.com/HsiaoCz/stream-media/data"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 type MySqlStorage interface {
-	UserLogin() error
-	UserRegister() error
-	UserDelete() error
-	GetUserByName() error
+	User_Mysql
 }
 type Mysql_Storage struct {
+	mc *mysqlConf
+	um User_Mysql
+}
+
+type mysqlConf struct {
 	mysql_user     string
 	mysql_password string
 	mysql_Host     string
@@ -19,17 +26,25 @@ type Mysql_Storage struct {
 }
 
 func NewMysqlStorage() *Mysql_Storage {
-	mysql_conf := conf.Conf.MySQLConf
+	myc := conf.Conf.MySQLConf
 	return &Mysql_Storage{
-		mysql_user:     mysql_conf.Mysql_User,
-		mysql_password: mysql_conf.Password,
-		mysql_Host:     mysql_conf.Mysql_Host,
-		mysql_port:     mysql_conf.Mysql_port,
-		db_Name:        mysql_conf.DB_Name,
+		mc: &mysqlConf{
+			mysql_user:     myc.Mysql_User,
+			mysql_password: myc.Password,
+			mysql_Host:     myc.Mysql_Host,
+			mysql_port:     myc.Mysql_port,
+			db_Name:        myc.DB_Name,
+		},
+		um: new_user_mysql(),
 	}
 }
 
-func (s *Mysql_Storage) UserRegister() error  { return nil }
-func (s *Mysql_Storage) UserLogin() error     { return nil }
-func (s *Mysql_Storage) GetUserByName() error { return nil }
-func (s *Mysql_Storage) UserDelete() error    { return nil }
+func (m *Mysql_Storage) initStore() error {
+	dsn := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", m.mc.mysql_user, m.mc.mysql_password, m.mc.mysql_Host, m.mc.mysql_port, m.mc.db_Name)
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		return err
+	}
+	db.AutoMigrate(&data.User{})
+	return err
+}
