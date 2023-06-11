@@ -173,3 +173,15 @@ API 怎么设计
 - 获取用户的基本信息：URL:/user/:username Method:GET sc :200,400,401,403,500
 
 - 用户注销：URL:/user/:username Method:DELETE,SC:204,400,401,403,500
+
+**API 设计，用户资源**
+
+- list all videos :URL:/user/:username/videos Method:GET,SC:200,400,500
+- get one video :URL:/user/:username/videos/:vid-id Method:GET,SC:200,400,500
+- delete one video :URL:/:username/videos/:vid-id Method:DELETE,SC:204,400,401,403,500
+
+**API 评论设计**
+
+- show comments:URL:/videos/:vid-id/comments Method:GET,SC:200,400,500
+- post a comments :URL:/videos/:vid-id/comments Method:POST SC:201,400,500
+- delete a comments :URL:/videos/:vid/comments/:comment-id Method:DELETE,SC:204,400,401,403,500
