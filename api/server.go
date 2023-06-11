@@ -13,18 +13,14 @@ import (
 var r = mux.NewRouter()
 
 type Server struct {
-	listenAddr string
-	user       *user
-	comments   *comments
-	store      *storage.Storage
+	user     *user
+	comments *comments
 }
 
 func NewServer(store *storage.Storage) *Server {
 	return &Server{
-		listenAddr: fmt.Sprintf("%s:%s", conf.Conf.AppConfig.AppAddr, conf.Conf.AppConfig.AppPort),
-		store:      store,
-		user:       newUser(),
-		comments:   newComments(),
+		user:     newUser(store),
+		comments: newComments(store),
 	}
 }
 
@@ -35,7 +31,7 @@ func (s *Server) Start() error {
 	s.comments.registerRouter()
 	srv := http.Server{
 		Handler:      r,
-		Addr:         s.listenAddr,
+		Addr:         fmt.Sprintf("%s:%s", conf.Conf.AppConfig.AppAddr, conf.Conf.AppConfig.AppPort),
 		WriteTimeout: time.Second,
 		ReadTimeout:  time.Second,
 	}

@@ -1,11 +1,17 @@
 package api
 
-import "net/http"
+import (
+	"net/http"
 
-type comments struct{}
+	"github.com/HsiaoCz/stream-media/storage"
+)
 
-func newComments() *comments {
-	return &comments{}
+type comments struct {
+	store *storage.Storage
+}
+
+func newComments(store *storage.Storage) *comments {
+	return &comments{store: store}
 }
 
 func (c *comments) registerRouter() {

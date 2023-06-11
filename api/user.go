@@ -1,11 +1,17 @@
 package api
 
-import "net/http"
+import (
+	"net/http"
 
-type user struct{}
+	"github.com/HsiaoCz/stream-media/storage"
+)
 
-func newUser() *user {
-	return &user{}
+type user struct {
+	store *storage.Storage
+}
+
+func newUser(store *storage.Storage) *user {
+	return &user{store: store}
 }
 
 func (u *user) registerRouter() {
@@ -14,8 +20,8 @@ func (u *user) registerRouter() {
 	r.HandleFunc("/user/{username}", u.handleGetUserByName).Methods("GET")
 	r.HandleFunc("/user/{username}", u.handleUserDelete).Methods("DETELE")
 	r.HandleFunc("/user/{username}/videos", u.handleListAllVideos).Methods("GET")
-	r.HandleFunc("/user/{username}/videos/{vid-id}",u.handleGetOneVideo).Methods("GET")
-	r.HandleFunc("/user/{username}/videos/{vid-id}",u.handleDeleteOneVideo).Methods("DELETE")
+	r.HandleFunc("/user/{username}/videos/{vid-id}", u.handleGetOneVideo).Methods("GET")
+	r.HandleFunc("/user/{username}/videos/{vid-id}", u.handleDeleteOneVideo).Methods("DELETE")
 }
 
 func (u *user) handleUserRegister(w http.ResponseWriter, r *http.Request)   {}
