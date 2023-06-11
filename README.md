@@ -185,3 +185,14 @@ API 怎么设计
 - show comments:URL:/videos/:vid-id/comments Method:GET,SC:200,400,500
 - post a comments :URL:/videos/:vid-id/comments Method:POST SC:201,400,500
 - delete a comments :URL:/videos/:vid/comments/:comment-id Method:DELETE,SC:204,400,401,403,500
+
+我测，什么垃圾，不如自己设计算了
+
+不知道实现啥功能好啊。
+
+唉，想到什么就实现什么。
+
+### 3、功能实现
+
+- 1、先连数据库
+
