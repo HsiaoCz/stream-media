@@ -9,7 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Mysql_Storage struct {
+type MysqlStorage struct {
 	mc *mysqlConf
 	Um user_Mysql
 }
@@ -22,9 +22,9 @@ type mysqlConf struct {
 	db_Name        string
 }
 
-func NewMysqlStorage() *Mysql_Storage {
+func NewMysqlStorage() *MysqlStorage {
 	myc := conf.Conf.MySQLConf
-	return &Mysql_Storage{
+	return &MysqlStorage{
 		mc: &mysqlConf{
 			mysql_user:     myc.Mysql_User,
 			mysql_password: myc.Password,
@@ -36,7 +36,7 @@ func NewMysqlStorage() *Mysql_Storage {
 	}
 }
 
-func (m *Mysql_Storage) initStore() error {
+func (m *MysqlStorage) initStore() error {
 	dsn := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", m.mc.mysql_user, m.mc.mysql_password, m.mc.mysql_Host, m.mc.mysql_port, m.mc.db_Name)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {

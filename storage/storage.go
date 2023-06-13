@@ -1,7 +1,7 @@
 package storage
 
 type Storage struct {
-	Ms *Mysql_Storage
+	Ms *MysqlStorage
 	Rs *RedisStorage
 }
 
