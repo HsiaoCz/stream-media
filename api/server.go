@@ -7,10 +7,10 @@ import (
 
 	"github.com/HsiaoCz/stream-media/conf"
 	"github.com/HsiaoCz/stream-media/storage"
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 )
 
-var r = mux.NewRouter()
+var r = gin.Default()
 
 type Server struct {
 	user     *user

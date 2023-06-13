@@ -1,9 +1,8 @@
 package api
 
 import (
-	"net/http"
-
 	"github.com/HsiaoCz/stream-media/storage"
+	"github.com/gin-gonic/gin"
 )
 
 type user struct {
@@ -15,19 +14,19 @@ func newUser(store *storage.Storage) *user {
 }
 
 func (u *user) registerRouter() {
-	r.HandleFunc("/user", u.handleUserRegister).Methods("POST")
-	r.HandleFunc("/user/{username}", u.handleUserLogin).Methods("POST")
-	r.HandleFunc("/user/{username}", u.handleGetUserByName).Methods("GET")
-	r.HandleFunc("/user/{username}", u.handleUserDelete).Methods("DETELE")
-	r.HandleFunc("/user/{username}/videos", u.handleListAllVideos).Methods("GET")
-	r.HandleFunc("/user/{username}/videos/{vid-id}", u.handleGetOneVideo).Methods("GET")
-	r.HandleFunc("/user/{username}/videos/{vid-id}", u.handleDeleteOneVideo).Methods("DELETE")
+	r.POST("/user", u.handleUserRegister)
+	r.POST("/user/:username", u.handleUserLogin)
+	r.GET("/user/:username", u.handleGetUserByName)
+	r.DELETE("/user/:username", u.handleUserDelete)
+	r.GET("/user/:username/videos", u.handleListAllVideos)
+	r.GET("/user/:username/videos/:vid-id", u.handleGetOneVideo)
+	r.DELETE("/user/:username/videos/:vid-id", u.handleDeleteOneVideo)
 }
 
-func (u *user) handleUserRegister(w http.ResponseWriter, r *http.Request)   {}
-func (u *user) handleUserLogin(w http.ResponseWriter, r *http.Request)      {}
-func (u *user) handleGetUserByName(w http.ResponseWriter, r *http.Request)  {}
-func (u *user) handleUserDelete(w http.ResponseWriter, r *http.Request)     {}
-func (u *user) handleListAllVideos(w http.ResponseWriter, r *http.Request)  {}
-func (u *user) handleGetOneVideo(w http.ResponseWriter, r *http.Request)    {}
-func (u *user) handleDeleteOneVideo(w http.ResponseWriter, r *http.Request) {}
+func (u *user) handleUserRegister(ctx *gin.Context)   {}
+func (u *user) handleUserLogin(ctx *gin.Context)      {}
+func (u *user) handleGetUserByName(ctx *gin.Context)  {}
+func (u *user) handleUserDelete(ctx *gin.Context)     {}
+func (u *user) handleListAllVideos(ctx *gin.Context)  {}
+func (u *user) handleGetOneVideo(ctx *gin.Context)    {}
+func (u *user) handleDeleteOneVideo(ctx *gin.Context) {}
