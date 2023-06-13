@@ -2,7 +2,7 @@ package storage
 
 import "gorm.io/gorm"
 
-type User_Mysql interface {
+type user_Mysql interface {
 	UserLogin() error
 	UserRegister() error
 	UserDelete() error

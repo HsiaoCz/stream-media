@@ -1,13 +1,13 @@
 package storage
 
 type Storage struct {
-	MySqlStorage
-	RedisStorage
+	Ms *Mysql_Storage
+	Rs *RedisStorage
 }
 
 func NewStorage() *Storage {
 	return &Storage{
-		MySqlStorage: NewMysqlStorage().um,
-		RedisStorage: NewRedisStorage(),
+		Ms: NewMysqlStorage(),
+		Rs: NewRedisStorage(),
 	}
 }

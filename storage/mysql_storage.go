@@ -9,12 +9,9 @@ import (
 	"gorm.io/gorm"
 )
 
-type MySqlStorage interface {
-	User_Mysql
-}
 type Mysql_Storage struct {
 	mc *mysqlConf
-	um User_Mysql
+	Um user_Mysql
 }
 
 type mysqlConf struct {
@@ -35,7 +32,7 @@ func NewMysqlStorage() *Mysql_Storage {
 			mysql_port:     myc.Mysql_port,
 			db_Name:        myc.DB_Name,
 		},
-		um: new_user_mysql(),
+		Um: new_user_mysql(),
 	}
 }
 

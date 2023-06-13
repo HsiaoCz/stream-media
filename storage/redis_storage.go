@@ -1,9 +1,15 @@
 package storage
 
-type RedisStorage interface{}
+type RedisStorage struct {
+	Rs userRedisI
+}
 
-type Redis_Storage struct{}
+func NewRedisStorage() *RedisStorage {
+	return &RedisStorage{
+		Rs: newUserRedis(),
+	}
+}
 
-func NewRedisStorage() *Redis_Storage {
-	return &Redis_Storage{}
+func (r *RedisStorage) initStore() error {
+	return nil
 }
